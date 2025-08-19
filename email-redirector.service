@@ -1,0 +1,16 @@
+[Unit]
+Description=Email Redirector Service
+After=network.target
+
+[Service]
+Type=exec
+User=root
+Group=root
+WorkingDirectory=/root/email-redirector
+Environment=PATH=/root/email-redirector/venv/bin
+ExecStart=/root/email-redirector/venv/bin/gunicorn --workers 3 --bind 0.0.0.0:5000 email_redirector:app
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
